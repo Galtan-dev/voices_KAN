@@ -7,51 +7,15 @@ import numpy as np
 import librosa
 import matplotlib.pyplot as plt
 import torch
+import os
 
-def data_from_txt(iteration, health):
+def data_from_txt(file_path):
     " loading data from txt file, it load record specified by \
-     number and if its healthy or unhealthy humen "
-    if health == "healthy":
-        if iteration < 10:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult000" + str(iteration) + "_healthy_50000.txt"
-
-        elif 10 <= iteration < 100:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult00" + (iteration) + "_healthy_50000.txt"
-
-        elif 100 <= iteration < 1000:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult0" + str(iteration) + "_healthy_50000.txt"
-
-        else:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult" + str(iteration) + "_healthy_50000.txt"
-
+     number and if its healthy or unhealthy humens "
+    if os.path.isfile(file_path):
+        # print(f"Nahrávám: {file_path}")
         audio_data = np.loadtxt(file_path)
-        return audio_data
-
-    elif health == "unhealthy":
-        if iteration < 10:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult000" + (iteration) + "_unhealthy_50000.txt"
-
-        elif 10 <= iteration < 100:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult00" + str(iteration) + "_unhealthy_50000.txt"
-
-        elif 100 <= iteration < 1000:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult0" + str(iteration) + "_unhealthy_50000.txt"
-
-        else:
-            file_path = "C:\\Users\\jakub\\PycharmProjects\\Voice_disease_detection\\" \
-                        "svdadult_renamed\\svdadult" + str(iteration) + "_unhealthy_50000.txt"
-
-        audio_data = np.loadtxt(file_path)
-        return audio_data
-    else:
-        print("error")
+    return audio_data
 
 def chroma(audio_data, sample_rate,n_chroma):
     " calculation of chroma features of data\
