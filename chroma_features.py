@@ -15,7 +15,7 @@ def extract_chroma_features(audio_data, sample_rate=50000):
     return chroma
 
 # Cesta k textovému souboru
-file_path = "C:\\Users\\jakub\\PycharmProjects\\KAN_voices\\samples\\unhelathy\\svdadult0160_unhealthy_50000.txt"
+file_path = "/samples/unhealthy\\svdadult0160_unhealthy_50000.txt"
 # Načtení zvukového signálu
 audio_data = load_audio_from_txt(file_path)
 

@@ -74,7 +74,7 @@ def main(file_path):
 
 
 # Cesta k vašemu textovému souboru
-file_path = "C:\\Users\\jakub\\PycharmProjects\\KAN_voices\\samples\\unhelathy\\svdadult0160_unhealthy_50000.txt"
+file_path = "/samples/unhealthy\\svdadult0160_unhealthy_50000.txt"
 
 # Volání hlavní funkce
 main(file_path)
