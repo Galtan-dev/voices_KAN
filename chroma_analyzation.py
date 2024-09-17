@@ -50,21 +50,21 @@ input_dataset = {
     'test_label': test_tensor_target
 }
 
-print("Dataset completed")
-
-torch.set_default_dtype(torch.float64)
-model = KAN(width=[2, 5, 5, 4], grid=3, seed=42)
-
-# plot kan
-model(input_dataset["train_input"])
-model.plot()
-plt.show()
-
-print("model_defined")
-
-# model training
-model.fit(input_dataset, opt="LBFGS", steps=50, lamb=0.001)
-model.plot()
-plt.show()
-
-print("ende")
+# print("Dataset completed")
+#
+# torch.set_default_dtype(torch.float64)
+# model = KAN(width=[2, 5, 5, 4], grid=3, seed=42)
+#
+# # plot kan
+# model(input_dataset["train_input"])
+# model.plot()
+# plt.show()
+#
+# print("model_defined")
+#
+# # model training
+# model.fit(input_dataset, opt="LBFGS", steps=50, lamb=0.001)
+# model.plot()
+# plt.show()
+#
+# print("ende")
