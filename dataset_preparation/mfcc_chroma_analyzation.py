@@ -4,7 +4,7 @@ from kan import KAN
 import matplotlib.pyplot as plt
 import toolbar_kan as tk
 
-def dataset_prep(data_path, ratio, sample_rate, n_chroma):
+def dataset_prep(data_path, ratio, sample_rate, n_chroma, n_mfcc):
     " this function take path of folder where data are\
     stored and make chroma features from them for\
     every sample in folder, after that save it into the \
@@ -14,8 +14,10 @@ def dataset_prep(data_path, ratio, sample_rate, n_chroma):
     tensors_list = []
     for item in os.listdir(data_path):
         data = tk.data_from_txt(data_path + "\\" + item)
-        chroma_mean, chroma_features = tk.chroma(data, sample_rate, n_chroma)
-        tensors_list = tk.data_to_tensor(chroma_mean, tensors_list)
+        chroma_mean = tk.chroma(data, sample_rate, n_chroma)
+        mfcc_features = tk.mfcc(data, sample_rate, n_mfcc)
+        all_features = chroma_mean + mfcc_features
+        tensors_list = tk.data_to_tensor(all_features, tensors_list)
     tensors_list = torch.stack(tensors_list)
     tensor_train, tensor_test = torch.split(tensors_list, ratio)
 
@@ -31,7 +33,7 @@ test_tensor = []
 # them to test and train dataset, and this dataset merge sou test contain
 # healthy and unhealthy samples
 for item in path:
-    train, test = dataset_prep(item, [80, 20], 50000, 4)
+    train, test = dataset_prep(item, [80, 20], 50000, 4, 4)
     train_tensor.append(train)
     test_tensor.append(test)
 
@@ -50,21 +52,22 @@ input_dataset = {
     'test_label': test_tensor_target
 }
 
-# print("Dataset completed")
-#
-# torch.set_default_dtype(torch.float64)
-# model = KAN(width=[2, 5, 5, 4], grid=3, seed=42)
-#
-# # plot kan
-# model(input_dataset["train_input"])
-# model.plot()
-# plt.show()
-#
-# print("model_defined")
-#
-# # model training
-# model.fit(input_dataset, opt="LBFGS", steps=50, lamb=0.001)
-# model.plot()
-# plt.show()
-#
-# print("ende")
+print("Dataset completed")
+
+
+torch.set_default_dtype(torch.float64)
+model = KAN(width=[2, 5, 5, 4], grid=3, seed=42)
+
+# plot kan
+model(input_dataset["train_input"])
+model.plot()
+plt.show()
+
+print("model_defined")
+
+# model training
+model.fit(input_dataset, opt="LBFGS", steps=50, lamb=0.001)
+model.plot()
+plt.show()
+
+print("ende")

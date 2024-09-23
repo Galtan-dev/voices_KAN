@@ -23,7 +23,9 @@ def chroma(audio_data, sample_rate,n_chroma):
     chroma_features = librosa.feature.chroma_stft(y=audio_data, sr=sample_rate, n_chroma=n_chroma)
     chroma_mean = np.mean(chroma_features, axis=1)
     chroma_mean = chroma_mean.tolist()
-    return chroma_mean, chroma_features
+
+    return chroma_mean
+    #, chroma_features
 
 def data_to_tensor(data, tensors_list):
     " take data and list of tensors or empty\
@@ -44,8 +46,7 @@ def chroma_visual(chroma_features, sample_rate):
 def mfcc(data, sample_rate, n_mffc):
     " take data and make mffc dfeatures from them,\
     on the end reshape it into [1,n] format "
-    mfcc = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=n_mffc).T, axis=0)
-    mfcc = np.reshape(mfcc, [1, n_mffc])
+    mfcc = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=n_mffc).T, axis=0).tolist()
 
     return mfcc
 
@@ -59,13 +60,10 @@ def dataset_prep(data_path, ratio, sample_rate, n_chroma, n_mfcc):
     tensors_list = []
     for item in os.listdir(data_path):
         data = data_from_txt(data_path + "\\" + item)
-        # calculation of chroma and mfcc features
+        chroma_mean = chroma(data, sample_rate, n_chroma)
         mfcc_features = mfcc(data, sample_rate, n_mfcc)
-        chroma_mean, chroma_features = chroma(data, sample_rate, n_chroma)
-        # merging lists of input features
-        tensors_list = chroma_mean + mfcc_features
-        # converting lists to tensors
-        tensors_list = data_to_tensor(tensors_list, tensors_list)
+        all_features = chroma_mean + mfcc_features
+        tensors_list = data_to_tensor(all_features, tensors_list)
     tensors_list = torch.stack(tensors_list)
     tensor_train, tensor_test = torch.split(tensors_list, ratio)
 
