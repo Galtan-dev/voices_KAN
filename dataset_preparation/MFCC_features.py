@@ -5,7 +5,7 @@ import os
 import numpy as np
 import toolbar_kan as tbk
 
-path = 'C:\\Users\\jakub\\PycharmProjects\\KAN_voices\\samples\\healthy\\svdadult0001_healthy_50000.txt'
+path = '/samples_testing\\healthy\\svdadult0001_healthy_50000.txt'
 
 data = tbk.data_from_txt(path)
 sample_rate = 8000

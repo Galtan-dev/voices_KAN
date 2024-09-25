@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from kan import KAN
 
 
-path = ["C:\\Users\\jakub\\PycharmProjects\\KAN_voices\\samples\\healthy",
-        "C:\\Users\\jakub\\PycharmProjects\\KAN_voices\\samples\\unhealthy"]
+path = ["C:\\Users\\jakub\\PycharmProjects\\KAN_voices\\samples_testing\\healthy",
+        "C:\\Users\\jakub\\PycharmProjects\\KAN_voices\\samples_testing\\unhealthy"]
 
 train_tensor = []
 test_tensor = []
