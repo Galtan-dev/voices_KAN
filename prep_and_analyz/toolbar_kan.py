@@ -67,7 +67,7 @@ def dataset_prep(data_path, sample_rate, n_chroma, n_mfcc):
         tensors_list = data_to_tensor(all_features, tensors_list)
 
         # Předpokládáme, že název souboru určuje štítek
-        label = 1 if 'healthy' in item else 0  # Zde bys měl upravit podle skutečného názvosloví
+        label = 0 if 'unhealthy' in item else 1  # Zde bys měl upravit podle skutečného názvosloví
         labels.append(label)
 
     tensors_list = torch.stack(tensors_list)
@@ -122,7 +122,7 @@ def model_resolution(formula, positive_num, negative_num, ver_input, ver_target)
     specificity = TN/(TN+FP)
     sensitivity = TP/(TP+FN)
     F1_score = (specificity+sensitivity)/2
-    # print(f"TP: {TP},FP: {FP}, TN: {TN}, FN: {FN}")
+    print(f"TP: {TP},FP: {FP}, TN: {TN}, FN: {FN}")
 
     return F1_score
 
